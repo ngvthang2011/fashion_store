@@ -26,8 +26,9 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">
+                        <form method="POST">
+                            @csrf
                         <div class="col-md-5">
-
                             <div class="form-group">
                                 <label for="">Danh mục cha:</label>
                                 <select class="form-control" name="" id="">
@@ -43,15 +44,18 @@
                                 <label for="">Tên Danh mục</label>
                                 <input type="text" class="form-control" name="name" id="" placeholder="Tên danh mục mới"
                                     value="Áo khoác nữ">
-                                <div class="alert bg-danger" role="alert">
-                                    <svg class="glyph stroked cancel">
-                                        <use xlink:href="#stroked-cancel"></use>
-                                    </svg>Tên danh mục đã tồn tại!<a href="#" class="pull-right"><span
-                                            class="glyphicon glyphicon-remove"></span></a>
-                                </div>
+                                    @if ($errors->has('name'))
+                                        <div class="alert bg-danger" role="alert">
+                                            <svg class="glyph stroked cancel">
+                                                <use xlink:href="#stroked-cancel"></use>
+                                            </svg>{{ $errors->first('name') }}<a href="#" class="pull-right"><span
+                                                    class="glyphicon glyphicon-remove"></span></a>
+                                        </div>
+                                @endif
                             </div>
                             <button type="submit" class="btn btn-primary">Sửa danh mục</button>
                         </div>
+                        </form>
                         <div class="col-md-7">
                             <div class="alert bg-success" role="alert">
                                 <svg class="glyph stroked checkmark">

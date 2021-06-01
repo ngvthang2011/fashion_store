@@ -3,15 +3,24 @@
 namespace App\Http\Controllers\backend;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\{EditCategoryRequest,AddCategoryRequest};
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-    public  function getCategory() {
+    public function getCategory() {
         return view('backend.category.category');
     }
 
-    public  function editCategory() {
+    public function postCategory(AddCategoryRequest $request) {
+       
+    }
+
+    public function editCategory() {
         return view('backend.category.editcategory');
+    }
+
+    public function postEditCategory(EditCategoryRequest $request) {
+        
     }
 }

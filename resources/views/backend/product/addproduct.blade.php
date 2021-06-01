@@ -13,6 +13,8 @@
     <div class="row">
         <div class="col-xs-6 col-md-12 col-lg-12">
             <div class="panel panel-primary">
+                <form method="POST" enctype="multipart/form-data">
+                    @csrf
                 <div class="panel-heading">Thêm sản phẩm</div>
                 <div class="panel-body">
                     <div class="row" style="margin-bottom:40px">
@@ -30,20 +32,20 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Mã sản phẩm</label>
-                                        <input required type="text" name="product_code" class="form-control">
+                                        <input type="text" name="product_code" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Tên sản phẩm</label>
-                                        <input required type="text" name="product_name" class="form-control">
+                                        <input type="text" name="product_name" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Giá sản phẩm (Giá chung)</label>
-                                        <input required type="number" name="product_price" class="form-control">
+                                        <input type="number" name="product_price" class="form-control">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Trạng thái</label>
-                                        <select required name="product_state" class="form-control">
+                                        <select name="product_state" class="form-control">
                                             <option value="1">Còn hàng</option>
                                             <option value="0">Hết hàng</option>
                                         </select>
@@ -61,7 +63,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Thông tin</label>
-                                <textarea required name="info" style="width: 100%;height: 100px;"></textarea>
+                                <textarea name="info" style="width: 100%;height: 100px;"></textarea>
                             </div>
 
                         </div>
@@ -170,7 +172,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Miêu tả</label>
-                                <textarea id="editor" required name="description"
+                                <textarea id="editor" name="description"
                                     style="width: 100%;height: 100px;"></textarea>
                             </div>
                             <button class="btn btn-success" name="add-product" type="submit">Thêm sản phẩm</button>
@@ -179,6 +181,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                </form>
             </div>
 
         </div>

@@ -24,6 +24,8 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">
+                        <form method="POST">
+                            @csrf
                         <div class="col-md-5">
 
                             <div class="form-group">
@@ -42,15 +44,18 @@
                                 <input type="text" class="form-control" name="name" id=""
                                     placeholder="Tên danh mục mới">
 
-                                <div class="alert bg-danger" role="alert">
-                                    <svg class="glyph stroked cancel">
-                                        <use xlink:href="#stroked-cancel"></use>
-                                    </svg>Tên danh mục đã tồn tại!<a href="#" class="pull-right"><span
-                                            class="glyphicon glyphicon-remove"></span></a>
-                                </div>
+                                @if ($errors->has('name'))
+                                    <div class="alert bg-danger" role="alert">
+                                        <svg class="glyph stroked cancel">
+                                            <use xlink:href="#stroked-cancel"></use>
+                                        </svg>{{ $errors->first('name') }}<a href="#" class="pull-right"><span
+                                                class="glyphicon glyphicon-remove"></span></a>
+                                    </div>
+                                @endif
                             </div>
                             <button type="submit" class="btn btn-primary">Thêm danh mục</button>
                         </div>
+                        </form>
                         <div class="col-md-7">
                             <div class="alert bg-success" role="alert">
                                 <svg class="glyph stroked checkmark">
@@ -63,7 +68,7 @@
                                 <div class="item-menu active">Danh mục </div>
                                 <div class="item-menu"><span>Nam</span>
                                     <div class="category-fix">
-                                        <a class="btn-category btn-primary" href="editcategory.html"><i
+                                        <a class="btn-category btn-primary" href="admin/category/edit"><i
                                                 class="fa fa-edit"></i></a>
                                         <a class="btn-category btn-danger" href="#"><i class="fas fa-times"></i></i></a>
 

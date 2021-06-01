@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\{AddProductRequest,EditProductRequest};
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
@@ -14,9 +15,16 @@ class ProductController extends Controller
     public function addProduct() {
         return view('backend.product.addproduct');
     }
+    public function postAddProduct(AddProductRequest $request) {
+        
+    }
 
     public function editProduct() {
         return view('backend.product.editproduct');
+    }
+
+    public function postEditProduct(EditProductRequest $request) {
+        
     }
 
     public function detailAttr() {
