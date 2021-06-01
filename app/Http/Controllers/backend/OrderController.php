@@ -8,14 +8,14 @@ use App\Http\Controllers\Controller;
 class OrderController extends Controller
 {
     public function listOrder(){
-        echo "Trang danh sách đơn hàng";
+        return view('backend.order.order');
     }
     
     public function detailOrder(){
-        echo "Trang chi tiết đơn hàng";
+        return view('backend.order.detailorder');
     }
 
     public function processedOrder(){
-        echo "Trang đơn hàng đã xử lý";
+        return view('backend.order.orderprocessed');
     }
 }

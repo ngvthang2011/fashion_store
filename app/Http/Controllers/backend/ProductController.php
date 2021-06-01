@@ -8,34 +8,34 @@ use App\Http\Controllers\Controller;
 class ProductController extends Controller
 {
     public function listProduct() {
-        echo "Trang danh sách sản phẩm";
+        return view('backend.product.listproduct');
     }
 
     public function addProduct() {
-        echo "Trang thêm sản phẩm";
+        return view('backend.product.addproduct');
     }
 
     public function editProduct() {
-        echo "Trang sửa sản phẩm";
+        return view('backend.product.editproduct');
     }
 
     public function detailAttr() {
-        echo "Trang chi tiết thuộc tính";
+        return view('backend.attr.attr');
     }
 
     public function editAttr() {
-        echo "Trang sửa thuộc tính ";
+        return view('backend.attr.editattr');
     }
 
     public function editValue() {
-        echo "Trang sửa giá trị thuộc tính ";
+        return view('backend.attr.editvalue');
     }
 
     public function addVariant() {
-        echo "Trang thêm biến thế";
+        return view('backend.variant.addvariant');
     }
 
     public function editVariant() {
-        echo "Trang sửa biến thể";
+        return view('backend.variant.editvariant');
     }
 }

@@ -8,10 +8,10 @@ use App\Http\Controllers\Controller;
 class CategoryController extends Controller
 {
     public  function getCategory() {
-        echo "Trang danh mục";
+        return view('backend.category.category');
     }
 
     public  function editCategory() {
-        echo "Trang sửa danh mục";
+        return view('backend.category.editcategory');
     }
 }

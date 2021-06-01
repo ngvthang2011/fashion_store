@@ -8,10 +8,10 @@ use App\Http\Controllers\Controller;
 class LoginController extends Controller
 {
     public function getLogin() {
-        echo "Trang Login";
+        return view('backend.login.login');
     }
 
     public function getIndex() {
-        echo "Trang chủ quản trị!";
+        return view('backend.index');
     }
 }
