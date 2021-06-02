@@ -7,7 +7,7 @@
                 <li class="dropdown pull-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user">
                             <use xlink:href="#stroked-male-user"></use>
-                        </svg> admin <span class="caret"></span></a>
+                        </svg>  @if (Auth::check()){{ Auth::user()->email }} @endif <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#"><svg class="glyph stroked male-user">
                                     <use xlink:href="#stroked-male-user"></use>

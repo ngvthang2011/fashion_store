@@ -24,6 +24,9 @@
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">FASHION STORE LOGIN</div>
 				<div class="panel-body">
+					@if(session('alert'))
+						<div class="alert alert-danger">{{ session('alert') }}</div>
+					@endif
 					<form method="POST" role="form">
 						@csrf
 						<fieldset>

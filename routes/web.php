@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('login', 'backend\LoginController@getLogin');
+Route::get('login', 'backend\LoginController@getLogin')->middleware('CheckLogin');
 Route::post('login', 'backend\LoginController@postLogin');
 
-Route::group(['prefix' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function() {
     Route::get('', 'backend\LoginController@getIndex');
 
     Route::get('logout', 'backend\LoginController@logout');
