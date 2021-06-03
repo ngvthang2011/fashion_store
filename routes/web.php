@@ -23,8 +23,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function() {
     Route::group(['prefix' => 'category'], function() {
         Route::get('', 'backend\CategoryController@getCategory');
         Route::post('', 'backend\CategoryController@postCategory');
-        Route::get('edit', 'backend\CategoryController@editCategory');
-        Route::post('edit', 'backend\CategoryController@postEditCategory');
+        Route::get('edit/{id}', 'backend\CategoryController@editCategory');
+        Route::post('edit/{id}', 'backend\CategoryController@postEditCategory');
+
+        Route::get('del/{id}', 'backend\CategoryController@delCategory');
     });
     
     //Product
