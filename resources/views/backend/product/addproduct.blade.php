@@ -1,5 +1,8 @@
 @extends('backend.master.master')
 @section('title', 'Thêm sảm phẩm')
+@section('product')
+    class="active"
+@endsection
     
 @section('content')
 <!--main-->
@@ -12,9 +15,10 @@
     <!--/.row-->
     <div class="row">
         <div class="col-xs-6 col-md-12 col-lg-12">
+            <form method="POST" enctype="multipart/form-data">
+                @csrf
             <div class="panel panel-primary">
-                <form method="POST" enctype="multipart/form-data">
-                    @csrf
+                    <form action="" method="post"></form>
                 <div class="panel-heading">Thêm sản phẩm</div>
                 <div class="panel-body">
                     <div class="row" style="margin-bottom:40px">
@@ -24,23 +28,23 @@
                                     <div class="form-group">
                                         <label>Danh mục</label>
                                         <select name="category" class="form-control">
-                                            <option value='1' selected>Nam</option>
-                                            <option value='3'>---|Áo khoác nam</option>
-                                            <option value='2'>Nữ</option>
-                                            <option value='4'>---|Áo khoác nữ</option>
+                                            {{ getCategory($categories,0,'',0) }}
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Mã sản phẩm</label>
                                         <input type="text" name="product_code" class="form-control">
+                                        {{ showErrors($errors,'product_code') }}
                                     </div>
                                     <div class="form-group">
                                         <label>Tên sản phẩm</label>
                                         <input type="text" name="product_name" class="form-control">
+                                        {{ showErrors($errors,'product_name') }}
                                     </div>
                                     <div class="form-group">
                                         <label>Giá sản phẩm (Giá chung)</label>
                                         <input type="number" name="product_price" class="form-control">
+                                        {{ showErrors($errors,'product_price') }}
                                     </div>
 
                                     <div class="form-group">
@@ -50,8 +54,17 @@
                                             <option value="0">Hết hàng</option>
                                         </select>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Sản phẩm nổi bật</label>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input name="featured" type="checkbox" value=1>Nổi bật
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-5">
+                                    {{ showErrors($errors,'product_img') }}
                                     <div class="form-group">
                                         <label>Ảnh sản phẩm</label>
                                         <input id="img" type="file" name="product_img" class="form-control hidden"
@@ -61,6 +74,7 @@
                                     </div>
                                 </div>
                             </div>
+                           
                             <div class="form-group">
                                 <label>Thông tin</label>
                                 <textarea name="info" style="width: 100%;height: 100px;"></textarea>
@@ -71,90 +85,88 @@
 
                             <div class="panel panel-default">
                                 <div class="panel-body tabs">
-                                    <label>Các thuộc Tính <a href="#"><span class="glyphicon glyphicon-cog"></span>
+                                   
+                                    <label>Các thuộc Tính <a href="admin/product/detail-attr"><span class="glyphicon glyphicon-cog"></span>
                                             Tuỳ chọn</a></label>
+                                    @if ($errors->has('attr_name'))
+                                       <div class="alert alert-danger">{{ $errors->first('attr_name') }}</div>
+                                    @endif
+                                    @if ($errors->has('value_name'))
+                                                <div class="alert alert-danger">{{ $errors->first('value_name') }}</div>
+                                    @endif
+                                    @if (session('alert'))
+                                            <div class="alert alert-success">{{ session('alert') }}</div>
+                                    @endif
                                     <ul class="nav nav-tabs">
-                                        <li class='active'><a href="#tab17" data-toggle="tab">size</a></li>
-                                        <li><a href="#tab18" data-toggle="tab">Màu sắc</a></li>
+                                        @php
+                                            $i=0;
+                                        @endphp
+                                        @foreach ($attributes as $attr)
+                                            <li @if($i==0)class='active' @endif><a href="#tab{{ $attr->id }}" data-toggle="tab">{{ $attr->name }}</a></li>
+                                            @php
+                                                $i=1;
+                                            @endphp
+                                        @endforeach
+
                                         <li><a href="#tab-add" data-toggle="tab">+</a></li>
                                     </ul>
+                                   
                                     <div class="tab-content">
-                                        <div class="tab-pane fade  active  in" id="tab17">
+                                        @foreach ($attributes as $attr)
+                                        <div class="tab-pane fade  @if($i==1) active @endif  in" id="tab{{ $attr->id }}">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>S</th>
-                                                        <th>M</th>
-                                                        <th>L</th>
-
+                                                        @foreach ($attr->values as $value)
+                                                        <th>{{ $value->value }}</th>
+                                                        @endforeach
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
+                                                        @foreach ($attr->values as $value)
                                                         <td> <input class="form-check-input" type="checkbox"
-                                                                name="attr[17][60]" value="60"> </td>
-                                                        <td> <input class="form-check-input" type="checkbox"
-                                                                name="attr[17][61]" value="61"> </td>
-                                                        <td> <input class="form-check-input" type="checkbox"
-                                                                name="attr[17][64]" value="64"> </td>
-
+                                                            name="attr[{{ $attr->id }}][]" value="{{ $value->id }}"> </td>
+                                                        @endforeach
+                                                        
                                                     </tr>
                                                 </tbody>
                                             </table>
                                             <hr>
-                                            <div class="form-group">
-                                                <label for="">Thêm biến thể cho thuộc tính</label>
-                                                <input type="hidden" name="id_pro" value="17">
-                                                <input name="var_name" type="text" class="form-control"
-                                                    aria-describedby="helpId" placeholder="">
-                                                <div> <button name="add_val" type="submit">Thêm</button></div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade  in" id="tab18">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Đỏ</th>
-                                                        <th>đen</th>
-                                                        <th>xám</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td> <input class="form-check-input" type="checkbox"
-                                                                name="attr[18][62]" value="62"> </td>
-                                                        <td> <input class="form-check-input" type="checkbox"
-                                                                name="attr[18][63]" value="63"> </td>
-                                                        <td> <input class="form-check-input" type="checkbox"
-                                                                name="attr[18][65]" value="65"> </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <hr>
-                                            <div class="form-group">
-                                                <label for="">Thêm biến thể cho thuộc tính</label>
-                                                <input type="hidden" name="id_pro" value="18">
-                                                <input name="var_name" type="text" class="form-control"
-                                                    aria-describedby="helpId" placeholder="">
-                                                <div> <button name="add_val" type="submit">Thêm</button></div>
-
-                                            </div>
+                                            
+                                            <form action="admin/product/add-value" method="post">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="">Thêm giá trị cho thuộc tính</label>
+                                                    <input type="hidden" name="attr_id" value="{{ $attr->id }}">
+                                                    <input name="value_name" type="text" class="form-control"
+                                                        aria-describedby="helpId" placeholder="">
+                                                    <div> <button type="submit">Thêm</button></div>
+                                                </div>
+                                            </form>
                                         </div>
 
+                                        @php
+                                            $i=2;
+                                        @endphp
+                                    @endforeach
 
                                         <div class="tab-pane fade" id="tab-add">
-
-                                            <div class="form-group">
-                                                <label for="">Tên thuộc tính mới</label>
-                                                <input type="text" class="form-control" name="pro_name"
-                                                    aria-describedby="helpId" placeholder="">
-                                            </div>
-
-                                            <button type="submit" name="add_pro" class="btn btn-success"> <span
-                                                    class="glyphicon glyphicon-plus"></span>
-                                                Thêm thuộc tính</button>
+                                            <form action="admin/product/add-attr" method="post">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="">Tên thuộc tính mới</label>
+                                                    <input type="text" class="form-control" name="attr_name"
+                                                        aria-describedby="helpId" placeholder="">
+                                                </div>
+    
+                                                <button type="submit" class="btn btn-success"> <span
+                                                        class="glyphicon glyphicon-plus"></span>
+                                                    Thêm thuộc tính</button>
+                                            </form>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                             <div class="form-group">

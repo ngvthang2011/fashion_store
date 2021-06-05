@@ -34,16 +34,26 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function() {
         Route::get('', 'backend\ProductController@listProduct');
         Route::get('add', 'backend\ProductController@addProduct');
         Route::post('add', 'backend\ProductController@postAddProduct');
-        Route::get('edit', 'backend\ProductController@editProduct');
-        Route::post('edit', 'backend\ProductController@postEditProduct');
+        Route::get('edit/{id}', 'backend\ProductController@editProduct');
+        Route::post('edit/{id}', 'backend\ProductController@postEditProduct');
+        Route::get('del/{id}', 'backend\ProductController@delProduct');
 
         Route::get('detail-attr', 'backend\ProductController@detailAttr');
-        Route::get('edit-attr', 'backend\ProductController@editAttr');
+        Route::get('edit-attr/{id}', 'backend\ProductController@editAttr');
+        Route::post('edit-attr/{id}', 'backend\ProductController@postEditAttr');
+        Route::post('add-attr', 'backend\ProductController@addAttr');
+        Route::get('del-attr/{id}', 'backend\ProductController@delAttr');
 
-        Route::get('edit-value', 'backend\ProductController@editValue');
+        Route::post('add-value', 'backend\ProductController@addValue');
+        Route::get('edit-value/{id}', 'backend\ProductController@editValue');
+        Route::post('edit-value/{id}', 'backend\ProductController@postEditValue');
+        Route::get('del-value/{id}', 'backend\ProductController@delValue');
 
-        Route::get('add-variant', 'backend\ProductController@addVariant');
-        Route::get('edit-variant', 'backend\ProductController@editVariant');
+        Route::get('add-variant/{id}', 'backend\ProductController@addVariant');
+        Route::post('add-variant/{id}', 'backend\ProductController@postAddVariant');
+        Route::get('edit-variant/{id}', 'backend\ProductController@editVariant');
+        Route::post('edit-variant/{id}', 'backend\ProductController@postEditVariant');
+        Route::get('del-variant/{id}', 'backend\ProductController@delVariant');
     });
 
     //Order 

@@ -24,10 +24,10 @@ class AddProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_code'=>'required|min:3',
+            'product_code'=>'required|min:3|unique:product,product_code',
             'product_name'=>'required|min:3',
             'product_price'=>'required|numeric',
-            'product_img'=>'image',
+            'product_img'=>'mimes:jpeg,jpg,png',
         ];
     }
     public function messages()
@@ -39,7 +39,8 @@ class AddProductRequest extends FormRequest
             'product_name.min'=>'Tên sản phẩm phải lớn hơn 3 ký tự!',
             'product_price.required'=>'Giá sản phẩm không được để trống!',
             'product_price.numeric'=>'Giá sản phẩm không đúng định dạng!',
-            'product_img.image'=>'File không đúng định dạng!',
+            'product_img.mimes'=>'File không đúng định dạng!',
+            'product_code.unique'=>'Mã sản phẩm đã tồn tại!',
         ];
     }
 }

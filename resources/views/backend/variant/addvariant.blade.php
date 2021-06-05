@@ -1,5 +1,8 @@
 @extends('backend.master.master')
-@section('title','Thêm thuộc tính sản phẩm')
+@section('title','Thêm giá theo từng biến thế sản phẩm')
+@section('product')
+    class="active"
+@endsection
     
 @section('content')
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -21,65 +24,64 @@
     <!--/.row-->
     <div class="col-md-12">
         <div class="panel panel-default">
-
+            <form method="post">
+                @csrf
             <div class="panel-heading" align='center'>
-                Giá cho từng biến thể sản phẩm : Áo khoác nam đẹp (AN01)
+                Giá cho từng biến thể sản phẩm : {{ $product->name }} ({{ $product->product_code }})
             </div>
             <div class="panel-body" align='center'>
-                <table class="panel-body">
+                
+                <table class="table">
                     <thead>
                         <tr>
-                            <th width='33%'>Biến thể</th>
-                            <th width='33%'>Giá (có thể trống)</th>
-                            <th width='33%'>Tuỳ chọn</th>
+                            <th >Biến thể</th>
+                            <th >Giá (có thể trống)</th>
+                            <th >Tuỳ chọn</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row">
-                                size : M,
-                                Màu sắc : đen,
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input name="" class="form-control" placeholder="Giá cho biến thể" value="">
-                                </div>
-                            </td>
-                            <td>
-                                <a id="" class="btn btn-warning" href="admin/product/delete-variant/1"
-                                    role="button">Xoá</a>
+                        @foreach ($product->variant as $variant)
+                            <tr>
+                                <td scope="row">
+                                    @foreach ($variant->values as $value)
+                                        {{ $value->attribute->name }} : {{ $value->value }}, 
+                                    @endforeach
+                                   
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input name="variant[{{ $variant->id }}]" class="form-control" placeholder="Giá cho biến thể" value="">
+                                    </div>
+                                </td>
+                                <td>
+                                    <a onclick="return delVariant()" class="btn btn-warning" href="admin/product/del-variant/{{ $variant->id }}"
+                                        role="button">Xoá</a>
 
-                            </td>
+                                </td>
 
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                size : L,
-                                Màu sắc : đen,
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input name="" class="form-control" placeholder="Giá cho biến thể" value="">
-                                </div>
-                            </td>
-                            <td>
-                                <a id="" class="btn btn-warning" href="admin/product/delete-variant/2"
-                                    role="button">Xoá</a>
-
-                            </td>
-
-                        </tr>
+                            </tr>
+                        @endforeach
+                       
+                        
                     </tbody>
                 </table>
 
             </div>
             <div align='right'><button class="btn btn-success" type="submit"> Cập nhật </button> <a
                     class="btn btn-warning" href="admin/product" role="button">Bỏ qua</a></div>
-
+        </form>
         </div>
     </div>
 
 </div>
 <!--/.main-->
 
+@endsection
+
+@section('script')
+    <script>
+        function delVariant(){
+            return confirm('Bạn có chắc chắn xóa biến thể này!');
+        }
+    </script>
 @endsection

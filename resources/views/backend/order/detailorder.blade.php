@@ -1,5 +1,8 @@
 @extends('backend.master.master')
 @section('title', 'Chi tiết đơn hàng')
+@section('order')
+    class="active"
+@endsection
 	
 @section('content')
 <!--main-->

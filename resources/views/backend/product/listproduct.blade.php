@@ -1,5 +1,8 @@
 @extends('backend.master.master')
 @section('title','Danh sách sản phẩm')
+@section('product')
+    class="active"
+@endsection
 	
 @section('content')
 <!--main-->
@@ -29,12 +32,14 @@
                 <div class="panel-body">
                     <div class="bootstrap-table">
                         <div class="table-responsive">
-                            <div class="alert bg-success" role="alert">
-                                <svg class="glyph stroked checkmark">
-                                    <use xlink:href="#stroked-checkmark"></use>
-                                </svg>Đã thêm thành công<a href="#" class="pull-right"><span
-                                        class="glyphicon glyphicon-remove"></span></a>
-                            </div>
+                            @if (session('alert'))
+                                <div class="alert bg-success" role="alert">
+                                    <svg class="glyph stroked checkmark">
+                                        <use xlink:href="#stroked-checkmark"></use>
+                                    </svg>{{ session('alert') }}<a href="#" class="pull-right"><span
+                                            class="glyphicon glyphicon-remove"></span></a>
+                                </div>
+                            @endif
                             <a href="admin/product/add" class="btn btn-primary">Thêm sản phẩm</a>
                             <table class="table table-bordered" style="margin-top:20px;">
 
@@ -49,88 +54,54 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($products as $product)
                                     <tr>
-                                        <td>1</td>
+                                        <td>{{ $product->id }}</td>
                                         <td>
                                             <div class="row">
-                                                <div class="col-md-3"><img src="public/backend/img/ao-khoac.jpg" alt="Áo đẹp"
+                                                <div class="col-md-3"><img src="public/backend/img/{{ $product->img }}" alt="Áo đẹp"
                                                         width="100px" class="thumbnail"></div>
                                                 <div class="col-md-9">
-                                                    <p><strong>Mã sản phẩm : SP01</strong></p>
-                                                    <p>Tên sản phẩm :Áo Khoác Bomber Nỉ Xanh Lá Cây AK179</p>
-                                                    <p>Danh mục:Áo khoác nam</p>
-                                                    <p>size:xl,xxl,</p>
-                                                    <div class="group-color">Màu tuỳ chọn:
-                                                        <div class="product-color"
-                                                            style="background-color: blueviolet;"></div>
-                                                        <div class="product-color" style="background-color: brown;">
-                                                        </div>
-                                                        <div class="product-color"
-                                                            style="background-color: darkorange;"></div>
-                                                    </div>
+                                                    <p><strong>Mã sản phẩm : {{ $product->product_code }}</strong></p>
+                                                    <p>Tên sản phẩm :{{ $product->name }}</p>
+                                                    <p>Danh mục:{{ $product->category->name }}</p>
+
+                                                    @foreach (attr_values($product->values) as $key=>$value)
+                                                        <p>{{ $key }}:
+                                                            @foreach ($value as $item)
+                                                                {{ $item }},
+                                                            @endforeach
+                                                        </p>
+                                                    @endforeach
 
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>500.000 VND</td>
+                                        <td>{{ number_format($product->price,0,'','.') }} VND</td>
                                         <td>
-                                            <a name="" id="" class="btn btn-success" href="#" role="button">Còn hàng</a>
+                                            @if ($product->state)
+                                            <a class="btn btn-success" role="button">Còn hàng</a>
+                                            @else
+                                            <a class="btn btn-danger" role="button">Hết hàng</a>
+                                            @endif
                                         </td>
-                                        <td>Áo Khoác Nam</td>
+                                        <td>{{ $product->category->name }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-warning"><i class="fa fa-pencil"
+                                            <a href="admin/product/edit/{{ $product->id }}" class="btn btn-warning"><i class="fa fa-pencil"
                                                     aria-hidden="true"></i> Sửa</a>
-                                            <a href="#" class="btn btn-danger"><i class="fa fa-trash"
+                                            <a onclick="return delPrd('{{ $product->name }}')" href="admin/product/del/{{ $product->id }}" class="btn btn-danger"><i class="fa fa-trash"
                                                     aria-hidden="true"></i> Xóa</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-3"><img src="public/backend/img/ao-khoac.jpg" alt="Áo đẹp"
-                                                        width="100px" class="thumbnail"></div>
-                                                <div class="col-md-9">
-                                                    <p><strong>Mã sản phẩm : SP01</strong></p>
-                                                    <p>Tên sản phẩm :Áo Khoác Bomber Nỉ Xanh Lá Cây AK179</p>
-                                                    <p>Danh mục:Áo khoác nam</p>
-                                                    <p>size:xl,xxl,</p>
-                                                    <div class="group-color">Màu tuỳ chọn:
-                                                        <div class="product-color"
-                                                            style="background-color: blueviolet;"></div>
-                                                        <div class="product-color" style="background-color: brown;">
-                                                        </div>
-                                                        <div class="product-color"
-                                                            style="background-color: darkorange;"></div>
-                                                    </div>
+                                    @endforeach
 
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>500.000 VND</td>
-                                        <td>
-                                            <a name="" id="" class="btn btn-danger" href="#" role="button">hết hàng</a>
-                                        </td>
-                                        <td>Áo Khoác Nam</td>
-                                        <td>
-                                            <a href="#" class="btn btn-warning"><i class="fa fa-pencil"
-                                                    aria-hidden="true"></i> Sửa</a>
-                                            <a href="#" class="btn btn-danger"><i class="fa fa-trash"
-                                                    aria-hidden="true"></i> Xóa</a>
-                                        </td>
-                                    </tr>
+                                   
 
 
                                 </tbody>
                             </table>
                             <div align='right'>
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#">Trở lại</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">tiếp theo</a></li>
-                                </ul>
+                               {{ $products->links() }}
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -143,3 +114,11 @@
         <!--end main-->
 
 @endsection
+
+@section('script')
+    <script>
+        function delPrd(prdName){
+            return confirm('Bạn có chắc chắn xóa sản phẩm: '+prdName+' ?')
+        }
+    </script>
+@endsection 
