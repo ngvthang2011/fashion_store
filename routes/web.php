@@ -11,6 +11,22 @@
 |
 */
 
+// FRONTEND
+Route::get('', 'frontend\HomeController@getHome');
+Route::get('about', 'frontend\HomeController@getAbout');
+Route::get('contact', 'frontend\HomeController@getContact');
+
+Route::group(['prefix' => 'product'], function() {
+    Route::get('', 'frontend\ProductController@listProduct');
+    Route::get('cart', 'frontend\ProductController@getCart');
+    Route::get('detail', 'frontend\ProductController@detailProduct');
+    Route::get('checkout', 'frontend\ProductController@checkOut');
+    Route::get('complete', 'frontend\ProductController@complete');
+});
+
+
+
+// BACKEND
 Route::get('login', 'backend\LoginController@getLogin')->middleware('CheckLogin');
 Route::post('login', 'backend\LoginController@postLogin');
 
