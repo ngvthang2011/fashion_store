@@ -4,12 +4,26 @@ namespace App\Http\Controllers\frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\models\{product,category};
 
 class ProductController extends Controller
 {
-    public function listProduct()
+    public function listProduct(Request $request)
     {
-        return view('frontend.product.shop');
+        if($request->category)
+        {
+            $data['products'] = product::where('img','<>','no-img.jpg')->where('category_id',$request->category)->paginate(12);
+        }
+        else if(isset($request->start) && isset($request->end)){
+            $data['products'] = product::where('img','<>','no-img.jpg')->wherebetween('price',[$request->start, $request->end])->paginate(12);
+        }
+        else
+        {
+            $data['products'] = product::where('img','<>','no-img.jpg')->orderBy('created_at','DESC')->paginate(12);
+        }
+        $data['categories'] = category::all();
+        
+        return view('frontend.product.shop',$data);
     }
     
     public function getCart()

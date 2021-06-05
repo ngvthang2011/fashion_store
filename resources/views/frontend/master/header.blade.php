@@ -6,11 +6,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-2">
-                        <div id="colorlib-logo"><a href="/">Fashion</a></div>
+                        <div id="colorlib-logo"><a href="">Fashion</a></div>
                     </div>
                     <div class="col-xs-10 text-right menu-1">
                         <ul>
-                            <li class="active"><a href="/">Trang chủ</a></li>
+                            <li class="active"><a href="">Trang chủ</a></li>
                             <li class="has-dropdown">
                                 <a href="product">Cửa hàng</a>
                                 <ul class="dropdown">
@@ -41,7 +41,7 @@
                                         <h1 class="head-1">Sale</h1>
                                         <h2 class="head-3">45%</h2>
                                         <p class="category"><span>Nhưng mẫu thiết kế chuyên nghiệp</span></p>
-                                        <p><a href="#" class="btn btn-primary">Kết nối với shop</a></p>
+                                        <p><a href="" class="btn btn-primary">Kết nối với shop</a></p>
                                     </div>
                                 </div>
                             </div>
