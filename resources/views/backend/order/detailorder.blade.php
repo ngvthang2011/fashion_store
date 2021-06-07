@@ -31,12 +31,12 @@
                                             <div class="panel-heading dark-overlay">Thông tin khách hàng</div>
                                             <div class="panel-body">
                                                 <strong><span class="glyphicon glyphicon-user"
-                                                        aria-hidden="true"></span> : Nguyễn thế phúc</strong> <br>
+                                                        aria-hidden="true"></span> : {{ $customer->full_name }}</strong> <br>
                                                 <strong><span class="glyphicon glyphicon-phone"
-                                                        aria-hidden="true"></span> : Số điện thoại: 0356653300</strong>
+                                                        aria-hidden="true"></span> : Số điện thoại: {{ $customer->phone }}</strong>
                                                 <br>
                                                 <strong><span class="glyphicon glyphicon-send"
-                                                        aria-hidden="true"></span> : Thường tín</strong>
+                                                        aria-hidden="true"></span> : {{ $customer->address }}</strong>
                                             </div>
                                         </div>
                                     </div>
@@ -56,54 +56,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                   
+                                    @foreach ($customer->order as $product)
                                     <tr>
-                                        <td>1</td>
+                                        <td>{{ $product->id }}</td>
                                         <td>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <img width="100px" src="public/backend/img/ao-khoac.jpg" class="thumbnail">
+                                                    <img width="100px" src="public/backend/img/{{ $product->img }}" class="thumbnail">
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <p>Mã sản phẩm: Sp01</p>
-                                                    <p>Tên Sản phẩm: <strong>Áo Khoác Bomber Nỉ Xanh Lá Cây
-                                                            AK179</strong></p>
-                                                    <div class="group-color">Color:
-                                                        <div class="product-color" style="background-color: brown;">
-                                                        </div>
-                                                    </div>
-                                                    <p>Size:xl</p>
+                                                    <p>Tên Sản phẩm: <strong>{{ $product->name }}</strong></p>
+                                                    @foreach ($product->attr as $attr)
+                                                    <p>{{ $attr->name }} : {{ $attr->value }}</p>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>2</td>
-                                        <td>500.000 VNĐ</td>
-                                        <td>1.000.000 VNĐ</td>
+                                        <td>{{ $product->quantity }}</td>
+                                        <td>{{ number_format($product->price,0,'','.') }} VNĐ</td>
+                                        <td>{{ number_format($product->price*$product->quantity,0,'','.') }} VNĐ</td>
 
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <img width="100px" src="public/backend/img/ao-khoac.jpg" class="thumbnail">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <p>Mã sản phẩm: SP02</p>
-                                                    <p>Tên Sản phẩm: <strong>Áo Khoác Bomber Nỉ Xanh Lá Cây
-                                                            AK177</strong></p>
-                                                    <div class="group-color">Color:
-                                                        <div class="product-color"
-                                                            style="background-color: blueviolet;"></div>
-                                                    </div>
-                                                    <p>Size:xl</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>1</td>
-                                        <td>500.000 VNĐ</td>
-                                        <td>500.000 VNĐ</td>
-
-                                    </tr>
+                                    @endforeach
 
                                 </tbody>
 
@@ -115,7 +90,7 @@
                                             <h4 align='right'>Tổng Tiền :</h4>
                                         </th>
                                         <th>
-                                            <h4 align='right' style="color: brown;">1.500.000 VNĐ</h4>
+                                            <h4 align='right' style="color: brown;">{{ number_format($customer->total,0,'','.') }} VNĐ</h4>
                                         </th>
 
                                     </tr>
@@ -124,7 +99,7 @@
                                 </tbody>
                             </table>
                             <div class="alert alert-primary" role="alert" align='right'>
-                                <a name="" id="" class="btn btn-success" href="#" role="button">Đã xử lý</a>
+                                <a class="btn btn-success" href="admin/order/active-order/{{ $customer->id }}" role="button">Đã xử lý</a>
                             </div>
                         </div>
                     </div>

@@ -24,7 +24,7 @@
                 <div class="panel-body">
                     <div class="bootstrap-table">
                         <div class="table-responsive">
-                            <a href="#" class="btn btn-warning"><span class="glyphicon glyphicon-gift"></span>Đơn Chưa
+                            <a href="admin/order" class="btn btn-warning"><span class="glyphicon glyphicon-gift"></span>Đơn Chưa
                                 xử lý</a>
                             <table class="table table-bordered" style="margin-top:20px;">
                                 <thead>
@@ -38,24 +38,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($customers as $customer)
                                     <tr>
-                                        <td>2</td>
-                                        <td>Nguyễn văn An</td>
-                                        <td>Lu@gmail.com</td>
-                                        <td>015232412</td>
-                                        <td>Bắc ninh</td>
-                                        <td>2018-12-06 12:17:17</td>
+                                        <td>{{ $customer->id }}</td>
+                                        <td>{{ $customer->full_name }}</td>
+                                        <td>{{ $customer->email }}</td>
+                                        <td>{{ $customer->phone }}</td>
+                                        <td>{{ $customer->address }}</td>
+                                        <td>{{ $customer->updated_at }}</td>
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Nguyễn thế phúc</td>
-                                        <td>admin@gmail.com</td>
-                                        <td>0906013526</td>
-                                        <td>Thường tín , hà nội</td>
-                                        <td>2018-12-06 02:05:30</td>
-                                    </tr>
+                                    @endforeach
+                                   
+                                    
                                 </tbody>
                             </table>
+                            <div align='right'>
+                                {{ $customers->links() }}
+                             </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>

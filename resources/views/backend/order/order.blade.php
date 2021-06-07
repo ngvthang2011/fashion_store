@@ -24,8 +24,10 @@
                 <div class="panel-body">
                     <div class="bootstrap-table">
                         <div class="table-responsive">
-
-                            <a href="orderinfo.html" class="btn btn-success">Đơn đã xử lý</a>
+                            @if (session('alert'))
+                                <div class="alert alert-success"><strong>{{ session('alert') }}</strong></div>
+                            @endif
+                            <a href="admin/order/processed" class="btn btn-success">Đơn đã xử lý</a>
                             <table class="table table-bordered" style="margin-top:20px;">
                                 <thead>
                                     <tr class="bg-primary">
@@ -38,20 +40,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
+                                    @foreach ($customers as $customer)
                                     <tr>
-                                        <td>1</td>
-                                        <td>Nguyễn Thế Phúc</td>
-                                        <td>0356653300</td>
-                                        <td>Thường tín</td>
+                                        <td>{{ $customer->id }}</td>
+                                        <td>{{ $customer->full_name }}</td>
+                                        <td>{{ $customer->phone }}</td>
+                                        <td>{{ $customer->address }}</td>
                                         <td>
-                                            <a href="orderinfo.html" class="btn btn-warning"><i class="fa fa-pencil"
+                                            <a href="admin/order/detail/{{ $customer->id }}" class="btn btn-warning"><i class="fa fa-pencil"
                                                     aria-hidden="true"></i>Xử lý</a>
 
                                         </td>
                                     </tr>
-
+                                    @endforeach
+                                    
                                 </tbody>
                             </table>
+                            <div align='right'>
+                                {{ $customers->links() }}
+                             </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>

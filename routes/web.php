@@ -79,8 +79,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdmin'], function() {
     //Order 
    Route::group(['prefix' => 'order'], function() {
        Route::get('', 'backend\OrderController@listOrder');
-       Route::get('detail', 'backend\OrderController@detailOrder');
+       Route::get('detail/{id}', 'backend\OrderController@detailOrder');
        Route::get('processed', 'backend\OrderController@processedOrder');
+       Route::get('active-order/{id}', 'backend\OrderController@activeOrder');
    });
    
     
