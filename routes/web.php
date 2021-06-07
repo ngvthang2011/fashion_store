@@ -19,9 +19,13 @@ Route::get('contact', 'frontend\HomeController@getContact');
 Route::group(['prefix' => 'product'], function() {
     Route::get('', 'frontend\ProductController@listProduct');
     Route::get('cart', 'frontend\ProductController@getCart');
-    Route::get('detail', 'frontend\ProductController@detailProduct');
+    Route::post('addCart', 'frontend\ProductController@addCart');
+    Route::get('delCart/{id}', 'frontend\ProductController@delCart');
+    Route::get('updateCart/{rowId}/{qty}', 'frontend\ProductController@updateCart');
+    Route::get('detail/{id}', 'frontend\ProductController@detailProduct');
     Route::get('checkout', 'frontend\ProductController@checkOut');
-    Route::get('complete', 'frontend\ProductController@complete');
+    Route::post('checkout', 'frontend\ProductController@postCheckOut');
+    
 });
 
 

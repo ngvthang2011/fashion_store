@@ -1,5 +1,8 @@
 @extends('frontend.master.master')
 @section('title','Fashion Store')
+@section('home')
+    class="active"
+@endsection
 	
 @section('content')
 <!-- main -->
@@ -90,16 +93,16 @@
 
                             <div class="cart">
                                 <p>
-                                    <span class="addtocart"><a href="product/detail"><i
+                                    <span class="addtocart"><a href="product/detail/{{ $product->id }}"><i
                                                 class="icon-shopping-cart"></i></a></span>
-                                    <span><a href="product/detail"><i class="icon-eye"></i></a></span>
+                                    <span><a href="product/detail/{{ $product->id }}"><i class="icon-eye"></i></a></span>
 
 
                                 </p>
                             </div>
                         </div>
                         <div class="desc">
-                            <h3><a href="product/detail">{{ $product->name }}</a></h3>
+                            <h3><a href="product/detail/{{ $product->id }}">{{ $product->name }}</a></h3>
                             <p class="price"><span>{{ number_format($product->price,0,'','.') }} đ</span> </p>
                         </div>
                     </div>
@@ -126,16 +129,16 @@
                         <p class="tag"><span class="new">New</span></p>
                         <div class="cart">
                             <p>
-                                <span class="addtocart"><a href="product/detail"><i
+                                <span class="addtocart"><a href="product/detail/{{ $prd->id }}"><i
                                             class="icon-shopping-cart"></i></a></span>
-                                <span><a href="product/detail"><i class="icon-eye"></i></a></span>
+                                <span><a href="product/detail/{{ $prd->id }}"><i class="icon-eye"></i></a></span>
 
 
                             </p>
                         </div>
                     </div>
                     <div class="desc">
-                        <h3><a href="product/detail">{{ $prd->name }}</a></h3>
+                        <h3><a href="product/detail/{{ $prd->id }}">{{ $prd->name }}</a></h3>
                         <p class="price"><span>{{ number_format($prd->price,0,'','.') }} đ</span></p>
                     </div>
                   </div>

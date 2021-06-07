@@ -1,5 +1,8 @@
 @extends('frontend.master.master')
 @section('title','Thông tin')
+@section('about')
+    class="active"
+@endsection
 	
 @section('content')
 <!-- main -->

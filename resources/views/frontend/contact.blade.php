@@ -1,5 +1,8 @@
 @extends('frontend.master.master')
 @section('title','Liên hệ')
+@section('contact')
+    class="active"
+@endsection
 	
 @section('content')
 <!-- main -->

@@ -101,6 +101,8 @@
 			});
 	
 		});
+
+		@yield('script')
 	
 	</script>
 </body>

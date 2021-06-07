@@ -91,4 +91,27 @@ function checkVariant($product, $variant){
     }
     return true;
 }
+
+//lấy giá theo biến thể . input: $product,$attr . output: price
+function getPrice($product, $attr)
+{
+    foreach($product->variant as $var)
+    {
+        $arr = array();
+        foreach($var->values as $value)
+        {
+            $arr[] = $value->value;
+        }
+        
+        if(array_diff($attr, $arr) == NULL)
+        {
+            if($var->price == 0)
+            {
+                return $product->price;
+            }
+            return $var->price;
+        }
+    }
+    return $product->price;
+}
 ?>

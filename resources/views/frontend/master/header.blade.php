@@ -10,8 +10,8 @@
                     </div>
                     <div class="col-xs-10 text-right menu-1">
                         <ul>
-                            <li class="active"><a href="">Trang chủ</a></li>
-                            <li class="has-dropdown">
+                            <li @yield('home')><a href="">Trang chủ</a></li>
+                            <li class="has-dropdown @yield('shop')">
                                 <a href="product">Cửa hàng</a>
                                 <ul class="dropdown">
                                     <li><a href="product/cart">Giỏ hàng</a></li>
@@ -19,11 +19,12 @@
 
                                 </ul>
                             </li>
-                            <li><a href="about">Giới thiệu</a></li>
-                            <li><a href="contact">Liên hệ</a></li>
-                            <li><a href="product/cart"><i class="icon-shopping-cart"></i> Giỏ hàng [0]</a></li>
+                            <li @yield('about')><a href="about">Giới thiệu</a></li>
+                            <li @yield('contact')><a href="contact">Liên hệ</a></li>
+                            <li @yield('cart')><a href="product/cart"><i class="icon-shopping-cart"></i> Giỏ hàng [@if(Cart::content()) {{ count(Cart::content()) }} @else 0 @endif]</a></li>
                         </ul>
                     </div>
+                    
                 </div>
             </div>
         </div>

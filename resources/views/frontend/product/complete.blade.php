@@ -16,7 +16,7 @@
                         <p><span>02</span></p>
                         <h3>Thanh toán</h3>
                     </div>
-                    <div class="process text-center">
+                    <div class="process text-center active">
                         <p><span>03</span></p>
                         <h3>Hoàn tất thanh toán</h3>
                     </div>
@@ -28,7 +28,7 @@
                 <span class="icon"><i class="icon-shopping-cart"></i></span>
                 <h2>Cảm ơn bạn đã mua hàng, Đơn hàng của bạn đã đặt thành công</h2>
                 <p>
-                    <a href="/" class="btn btn-primary">Trang chủ</a>
+                    <a href="" class="btn btn-primary">Trang chủ</a>
                     <a href="product" class="btn btn-primary btn-outline">Tiếp tục mua sắm</a>
                 </p>
             </div>
@@ -40,19 +40,19 @@
                     <tbody>
                         <tr>
                             <td>Đơn hàng số</td>
-                            <td>: 60235</td>
+                            <td>: {{ $customer->id }}</td>
                         </tr>
                         <tr>
                             <td>Ngày mua</td>
-                            <td>: Oct 03, 2017</td>
+                            <td>: {{ $customer->created_at }}</td>
                         </tr>
                         <tr>
                             <td>Tổng tiền</td>
-                            <td>: ₫ 4.000.000</td>
+                            <td>: ₫ {{ number_format($customer->total,0,'','.') }}</td>
                         </tr>
                         <tr>
                             <td>Phương thức thanh toán</td>
-                            <td>: Nhận tiền mặt</td>
+                            <td>: Ship Code </td>
                         </tr>
                     </tbody>
                 </table>
@@ -63,20 +63,17 @@
                     <tbody>
                         <tr>
                             <td>Họ Tên</td>
-                            <td>: Nguyễn Văn A</td>
+                            <td>: {{ $customer->full_name }}</td>
                         </tr>
                         <tr>
                             <td>Số điện thoại</td>
-                            <td>: 0123 456 789</td>
+                            <td>: {{ $customer->phone }}</td>
                         </tr>
                         <tr>
                             <td>Địa chỉ</td>
-                            <td>: Số nhà B8A ngõ 18 đường Võ Văn Dũng - Hoàng Cầu - Đống Đa </td>
+                            <td>: {{ $customer->address }} </td>
                         </tr>
-                        <tr>
-                            <td>Thành Phố</td>
-                            <td>: Hà Nội</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -86,20 +83,17 @@
                     <tbody>
                         <tr>
                             <td>Họ Tên</td>
-                            <td>: Nguyễn Văn A</td>
+                            <td>: {{ $customer->full_name }}</td>
                         </tr>
                         <tr>
                             <td>Số điện thoại</td>
-                            <td>: 0123 456 789</td>
+                            <td>: {{ $customer->phone }}</td>
                         </tr>
                         <tr>
                             <td>Địa chỉ</td>
-                            <td>: Số nhà B8A ngõ 18 đường Võ Văn Dũng - Hoàng Cầu - Đống Đa </td>
+                            <td>: {{ $customer->address }} </td>
                         </tr>
-                        <tr>
-                            <td>Thành Phố</td>
-                            <td>: Hà Nội</td>
-                        </tr>
+                
                     </tbody>
                 </table>
             </div>
@@ -117,25 +111,26 @@
 
                                 <div class="col-md-4 offset-md-4" align='right'>TỔNG CỘNG</div>
                             </div>
-                            <div class="list-row d-flex justify-content-between">
-                                <div class="col-md-4">Sản phẩm 1 : color:red ,size:XL</div>
-                                <div class="col-md-4" align='right'>x 02</div>
-                                <div class="col-md-4" align='right'>₫ 720.000</div>
 
-                            </div>
+                            @foreach ($customer->order as $order)
+                                <div class="list-row d-flex justify-content-between">
+                                    <div class="col-md-4">{{ $order->name }} (
+                                        @foreach ($order->attr as $attr)
+                                            {{ $attr->name }} : {{ $attr->value }}| 
+                                        @endforeach
+                                        )</div>
 
-                            <div class="list-row d-flex justify-content-between">
-                                <div class="col-md-4">Sản phẩm 1 : color:red ,size:XL</div>
-                                <div class="col-md-4" align='right'>x 02</div>
-                                <div class="col-md-4" align='right'>₫ 720.000</div>
-
-                            </div>
+                                    <div class="col-md-4" align='right'>x {{ $order->quantity }}</div>
+                                    <div class="col-md-4" align='right'>₫ {{ number_format($order->price*$order->quantity,0,'','.') }}</div>
+                                </div>
+                            @endforeach
+                           
 
                             <div class="list-row border-bottom-0 d-flex justify-content-between">
                                 <div class="col-md-4">
                                     <h6>Tổng</h6>
                                 </div>
-                                <div class="col-md-4 offset-md-4" align='right'>₫ 1.420.000</div>
+                                <div class="col-md-4 offset-md-4" align='right'>₫ {{ number_format($customer->total,0,'','.') }}</div>
                             </div>
                         </div>
                     </div>

@@ -51,8 +51,7 @@
                                         @foreach ($variant->values as $value)
                                             {{ $value->attribute->name }}  : {{ $value->value }}, 
                                         @endforeach
-                                        size : M,
-                                        Màu sắc : đen,
+                                        
                                     </td>
                                     <td>
                                         <div class="form-group">

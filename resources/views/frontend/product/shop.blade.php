@@ -1,5 +1,6 @@
 @extends('frontend.master.master')
 @section('title','Sản phẩm')
+@section('shop','active')
 	
 @section('content')
 <!-- main -->
@@ -16,16 +17,16 @@
                                     <p class="tag"><span class="new">New</span></p>
                                     <div class="cart">
                                         <p>
-                                            <span class="addtocart"><a href="product/detail"><i
+                                            <span class="addtocart"><a href="product/detail/{{ $product->id }}"><i
                                                         class="icon-shopping-cart"></i></a></span>
-                                            <span><a href="product/detail"><i class="icon-eye"></i></a></span>
+                                            <span><a href="product/detail/{{ $product->id }}"><i class="icon-eye"></i></a></span>
 
 
                                         </p>
                                     </div>
                                 </div>
                                 <div class="desc">
-                                    <h3><a href="product/detail">{{ $product->name }}</a></h3>
+                                    <h3><a href="product/detail/{{ $product->id }}">{{ $product->name }}</a></h3>
                                     <p class="price"><span>{{ number_format($product->price,0,'','.') }} đ</span></p>
                                 </div>
                             </div>
@@ -117,31 +118,21 @@
                             <button type="submit" style="width: 100%;border: none;height: 40px;">Tìm kiếm</button>
                         </form>
                     </div>
+                   @foreach ($attributes as $attribute)
                     <div class="side">
-                        <h2>Màu sắc</h2>
+                        <h2>{{ $attribute->name }}</h2>
                         <div class="size-wrap">
                             <p class="size-desc">
-                                <a href="#" class="attr">Đỏ</a>
-                                <a href="#" class="attr">Xanh</a>
-                                <a href="#" class="attr">Đen</a>
-                                <a href="#" class="attr">Trắng</a>
 
+                                @foreach ($attribute->values as $value)
+                                <a href="product?value={{ $value->id }}" class="attr">{{ $value->value }}</a>
+                                @endforeach
+                               
                             </p>
                         </div>
-                    </div>
-                    <div class="side">
-                        <h2>Kích thước</h2>
-                        <div class="size-wrap">
-                            <p class="size-desc">
-                                <a href="#" class="attr">xs</a>
-                                <a href="#" class="attr">s</a>
-                                <a href="#" class="attr">m</a>
-                                <a href="#" class="attr">l</a>
-                                <a href="#" class="attr">xl</a>
-                                <a href="#" class="attr">xxl</a>
-                            </p>
                         </div>
-                    </div>
+                   @endforeach
+                   
                 </div>
             </div>
         </div>
